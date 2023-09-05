@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, redirect, render_template, session
+from flask import Flask, redirect, render_template, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
 
 from models import db, connect_db, User
@@ -25,10 +25,12 @@ debug = DebugToolbarExtension(app)
 
 @app.get("/")
 def show_homepage():
+    """Renders the home page."""
     return redirect("/register")
 
 @app.route("/register", methods= ["GET", "POST"])
 def register_user():
+    """Handles the regristration of new users."""
 
     form = RegisterUserForm()
 
@@ -51,3 +53,47 @@ def register_user():
 
     else:
         return render_template("registration-page.html", form=form)
+
+@app.route("/login", methods=["GET", "POST"])
+def login_user():
+    """Handles logging in for existing users."""
+
+    form = LoginUserForm()
+
+    if form.validate_on_submit():
+
+        username = form.username.data
+
+        password = form.password.data
+
+        user = User.authenticate(username=username, password=password)
+
+        if user:
+            session["username"] = user.username
+            return redirect(f"/users/{user.username}")
+        else:
+            flash(message = "Invalid login credentials")
+            #form.username.errors = ["Bad username/password"]
+            return redirect("/login")
+
+    else:
+        return render_template("login-page.html", form=form)
+
+@app.get("/users/<string:username>")
+def show_user(username):
+    """Shows the user page for a logged-in user."""
+
+    user = User.query.get_or_404(username)
+
+    if "username" in session:
+
+        return render_template("user-page.html", user=user)
+    else:
+        return redirect('/')
+
+@app.post("/logout")
+def logout_user():
+    """Handles logging out a logged-in user."""
+    session.pop("username", None)
+
+    return redirect("/")
