@@ -4,7 +4,7 @@ from flask import Flask, redirect, render_template, session
 from flask_debugtoolbar import DebugToolbarExtension
 
 from models import db, connect_db, User
-#from forms import RegisterUserForm
+from forms import RegisterUserForm, LoginUserForm
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
@@ -37,7 +37,7 @@ def register_user():
         password = form.password.data
         email = form.email.data
         first_name = form.first_name.data
-        last_name= form.last_name.data
+        last_name = form.last_name.data
 
         user = User.register(username=username, password=password, email=email,
                              first_name=first_name, last_name=last_name)
