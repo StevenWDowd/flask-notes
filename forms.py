@@ -3,19 +3,19 @@ from wtforms import StringField, PasswordField
 from wtforms.validators import InputRequired, Length, Email
 
 class RegisterUserForm(FlaskForm):
-    username = StringField("Username", 
-                           validators=[InputRequired(), Length(20)])
-    email = StringField("Email", 
+    username = StringField("Username",
+                           validators=[InputRequired(), Length(6, 20)])
+    email = StringField("Email",
                         validators=[InputRequired(), Email()])
-    password = PasswordField("Password", 
-                             validators=[InputRequired(), Length(8, 30)])
-    first_name = StringField("First Name", 
-                             validators=[InputRequired(), Length(30)])
-    last_name = StringField("Last Name", 
-                            validators=[InputRequired(), Length(30)])
+    password = PasswordField("Password",
+                             validators=[InputRequired(), Length(6, 30)])
+    first_name = StringField("First Name",
+                             validators=[InputRequired(), Length(1, 30)])
+    last_name = StringField("Last Name",
+                            validators=[InputRequired(), Length(1, 30)])
 
 class LoginUserForm(FlaskForm):
-    username = StringField("Username", 
-                           validators=[InputRequired(), Length(20)])
-    password = PasswordField("Password", 
-                             validators=[InputRequired(), Length(8, 30)])
+    username = StringField("Username",
+                           validators=[InputRequired(), Length(0, 20)])
+    password = PasswordField("Password",
+                             validators=[InputRequired(), Length(6, 30)])

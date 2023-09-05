@@ -17,6 +17,8 @@ def connect_db(app):
 
 class User(db.Model):
     """User model."""
+    __tablename__ = "users"
+
     username = db.Column(
         db.String(20),
         unique=True,
@@ -64,7 +66,4 @@ class User(db.Model):
 
         else:
             return False
-
-
-
 
