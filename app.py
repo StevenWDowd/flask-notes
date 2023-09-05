@@ -85,7 +85,7 @@ def show_user(username):
 
     user = User.query.get_or_404(username)
 
-    if "username" in session:
+    if session.get("username") == username:
 
         return render_template("user-page.html", user=user)
     else:
