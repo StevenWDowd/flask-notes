@@ -9,12 +9,5 @@
   {% block content %}
 
   {% endblock %}
-
-{% if 'username' in session %}
-  <form action="/logout" method="POST">
-    <button type="submit" class="btn btn-primary">Logout</button>
-  </form>
-{% endif %}
-
 </body>
 </html>
