@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, TextAreaField
 from wtforms.validators import InputRequired, Length, Email
 
 class RegisterUserForm(FlaskForm):
@@ -22,5 +22,12 @@ class LoginUserForm(FlaskForm):
     password = PasswordField("Password",
                              validators=[InputRequired(), Length(6, 30)])
 
-class LogoutForm(FlaskForm):
-    """Form for logging out a user"""
+class CSRFForm(FlaskForm):
+    """Empty form for logging out and deleting."""
+
+class NoteForm(FlaskForm):
+    title = StringField("Title", validators=[InputRequired(), Length(1, 100)])
+
+    content = TextAreaField("Note Text", validators=[InputRequired()])
+
+

@@ -74,11 +74,12 @@ class User(db.Model):
 
 class Note(db.Model):
     """Note Model."""
-    __table__ = "notes"
+    __tablename__ = "notes"
 
     id = db.Column(
-        db.Serial,
-        primarykey=True
+        db.Integer,
+        primary_key=True,
+        autoincrement=True
     )
 
     title = db.Column(

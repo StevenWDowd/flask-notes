@@ -13,4 +13,32 @@
 <p>Last Name: {{ user.last_name }}</p>
 <p>User Email: {{ user.email }}</p>
 
+{% for note in user.notes %}
+
+<div>
+    <h3>{{ note.title }}</h3>
+    <p> {{ note.content }}</p>
+    <form action="/notes/{{ note.id }}/update" method="GET">
+      <input type="submit" value="Edit Note">
+    </form>
+    <form action="/notes/{{ note.id }}/delete" method="POST">
+      {{ form.hidden_tag() }}
+      <input type="submit" value="Delete Note">
+    </form>
+</div>
+{% endfor %}
+<br>
+
+<form action="/users/{{ user.username }}/notes/add" method="GET">
+  <input type="submit" value="Add a Note">
+</form>
+<br>
+
+<form action="/users/{{ user.username }}/delete" method="POST">
+  {{ form.hidden_tag() }}
+  <input type="submit" value="Delete User">
+</form>
+
+
+
 {% endblock %}
